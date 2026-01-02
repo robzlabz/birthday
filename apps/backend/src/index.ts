@@ -4,6 +4,7 @@ import { logger } from "hono/logger";
 import usersRoute from "./routes/users";
 import timezoneRoute from "./routes/timezone";
 import { EventService } from "./service/event.service";
+import { EmailService } from "./service/email.service";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 
@@ -23,8 +24,20 @@ app.notFound((c) => {
 
 export default {
   fetch: app.fetch,
-  async queue(batch: MessageBatch, env: CloudflareBindings): Promise<void> {
-    console.log("Queue message received", batch);
+  async queue(batch: MessageBatch<any>, env: CloudflareBindings): Promise<void> {
+    console.log(`[Queue] Processing batch of ${batch.messages.length} messages from ${batch.queue}`);
+    const emailService = new EmailService();
+
+    for (const message of batch.messages) {
+      try {
+        await emailService.sendEventMessage(message.body);
+        message.ack();
+      } catch (error) {
+        console.error(`[Queue] Failed to process message ${message.id}:`, error);
+        // We throw so the batch retries or let Cloudflare handle it
+        // Depending on requirements, we might want to retry individual messages
+      }
+    }
   },
   async scheduled(event: ScheduledEvent, env: CloudflareBindings, ctx: ExecutionContext): Promise<void> {
     console.log("Cron job triggered", event.cron);
