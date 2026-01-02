@@ -15,6 +15,13 @@
       "when": 1767368794132,
       "tag": "0001_dear_thunderbolts",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1767394054558,
+      "tag": "0002_naive_bloodstorm",
+      "breakpoints": true
     }
   ]
 }

@@ -1,10 +1,10 @@
 import { eq, and, sql, inArray } from 'drizzle-orm';
 import { getDb } from '../db';
-import { users } from '../db/schema';
+import { users, userEvents } from '../db/schema';
 import { DrizzleD1Database } from 'drizzle-orm/d1';
 import * as schema from '../db/schema';
 
-export class BirthdayService {
+export class EventService {
     private db: DrizzleD1Database<typeof schema>;
     private queue: Queue;
 
@@ -14,61 +14,65 @@ export class BirthdayService {
     }
 
     /**
-     * Checks for birthdays and pushes them to the queue.
+     * Checks for events (birthdays, anniversaries) and pushes them to the queue.
      * Targeted for high performance and efficiency.
      */
     async checkAndQueue(now: Date = new Date()) {
-        console.log(`[BirthdayService] Checking birthdays for reference time: ${now.toISOString()}`);
+        console.log(`[EventService] Checking events for reference time: ${now.toISOString()}`);
 
         const targetHour = 9; // Notification hour in local time
         const activeTimezones = this.getAffectedTimezones(now, targetHour);
 
         if (activeTimezones.length === 0) {
-            console.log("[BirthdayService] No timezones are currently in the target notification window.");
+            console.log("[EventService] No timezones are currently in the target notification window.");
             return;
         }
 
-        // We handle multiple potential "today" dates (e.g. UTC 00:01 is tomorrow for some and today for others)
-        // although filtering by timezone usually narrows this down to a specific local date.
         const dateToTimezones = this.groupByLocalDate(now, activeTimezones);
 
         for (const [localDateStr, timezones] of Object.entries(dateToTimezones)) {
             const [year, month, day] = localDateStr.split('-').map(Number);
             const isLeapYear = this.isLeapYear(year);
-            const birthdaySuffix = `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+            const eventSuffix = `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
 
-            console.log(`[BirthdayService] Querying users for ${birthdaySuffix} in timezones: ${timezones.join(', ')}`);
+            console.log(`[EventService] Querying events for ${eventSuffix} in timezones: ${timezones.join(', ')}`);
 
-            // Primary query: users in active timezones with matching MM-DD
-            let query = this.db.select()
-                .from(users)
+            // Query joined users and userEvents
+            const matchedEvents = await this.db.select({
+                user: users,
+                event: userEvents
+            })
+                .from(userEvents)
+                .innerJoin(users, eq(userEvents.userId, users.id))
                 .where(
                     and(
                         inArray(users.location, timezones),
-                        sql`strftime('%m-%d', ${users.birthdayDate}) = ${birthdaySuffix}`
+                        sql`strftime('%m-%d', ${userEvents.eventDate}) = ${eventSuffix}`
                     )
-                );
-
-            const matchedUsers = await query.all();
+                )
+                .all();
 
             // Edge Case: February 29th on Non-Leap Years
-            // If today is March 1st and it's NOT a leap year, we also need to catch the "Leaplings"
             if (month === 3 && day === 1 && !isLeapYear) {
-                console.log("[BirthdayService] Non-leap year detected on March 1st. Including Feb 29th birthdays.");
-                const leaplings = await this.db.select()
-                    .from(users)
+                console.log("[EventService] Non-leap year detected on March 1st. Including Feb 29th events.");
+                const leaplings = await this.db.select({
+                    user: users,
+                    event: userEvents
+                })
+                    .from(userEvents)
+                    .innerJoin(users, eq(userEvents.userId, users.id))
                     .where(
                         and(
                             inArray(users.location, timezones),
-                            sql`strftime('%m-%d', ${users.birthdayDate}) = '02-29'`
+                            sql`strftime('%m-%d', ${userEvents.eventDate}) = '02-29'`
                         )
                     )
                     .all();
-                matchedUsers.push(...leaplings);
+                matchedEvents.push(...leaplings);
             }
 
-            if (matchedUsers.length > 0) {
-                await this.publishToQueue(matchedUsers);
+            if (matchedEvents.length > 0) {
+                await this.publishToQueue(matchedEvents);
             }
         }
     }
@@ -102,24 +106,25 @@ export class BirthdayService {
         return groups;
     }
 
+    // check if a year is a leap year for february 29th
     private isLeapYear(year: number): boolean {
         return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
     }
 
-    private async publishToQueue(usersToNotify: Array<any>) {
-        console.log(`[BirthdayService] Publishing ${usersToNotify.length} users to the queue.`);
+    private async publishToQueue(eventsToNotify: Array<{ user: any, event: any }>) {
+        console.log(`[EventService] Publishing ${eventsToNotify.length} events to the queue.`);
 
-        // Cloudflare Queue sendBatch supports up to 100 messages at a time.
         const batchSize = 100;
-        for (let i = 0; i < usersToNotify.length; i += batchSize) {
-            const batch = usersToNotify.slice(i, i + batchSize).map(user => ({
+        for (let i = 0; i < eventsToNotify.length; i += batchSize) {
+            const batch = eventsToNotify.slice(i, i + batchSize).map(({ user, event }) => ({
                 body: {
                     userId: user.id,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     location: user.location,
-                    birthdayDate: user.birthdayDate,
-                    processYear: new Date().getFullYear() // Useful for idempotency checks later
+                    eventType: event.type,
+                    eventDate: event.eventDate,
+                    processYear: new Date().getFullYear()
                 }
             }));
             await this.queue.sendBatch(batch);

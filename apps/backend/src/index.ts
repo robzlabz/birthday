@@ -3,7 +3,7 @@ import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import usersRoute from "./routes/users";
 import timezoneRoute from "./routes/timezone";
-import { BirthdayService } from "./service/birthday.service";
+import { EventService } from "./service/event.service";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 
@@ -28,7 +28,7 @@ export default {
   },
   async scheduled(event: ScheduledEvent, env: CloudflareBindings, ctx: ExecutionContext): Promise<void> {
     console.log("Cron job triggered", event.cron);
-    const birthdayService = new BirthdayService(env.DB, env.BIRTHDAY_CHECK_QUEUE);
-    ctx.waitUntil(birthdayService.checkAndQueue());
+    const eventService = new EventService(env.DB, env.BIRTHDAY_CHECK_QUEUE);
+    ctx.waitUntil(eventService.checkAndQueue());
   },
 };
