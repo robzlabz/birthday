@@ -65,8 +65,8 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_name": "birthday-db",
-			"database_id": "YOUR_D1_DATABASE_ID_HERE",
+			"database_name": "birthday",
+			"database_id": "a0da7b14-a7b3-4164-8b69-d247b04c161b",
 			"migrations_dir": "drizzle"
 		}
 	]

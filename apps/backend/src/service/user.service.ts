@@ -1,52 +1,32 @@
-import { eq } from 'drizzle-orm';
 import { getDb } from '../db';
-import { users, userEvents } from '../db/schema';
-import { DrizzleD1Database } from 'drizzle-orm/d1';
-import * as schema from '../db/schema';
-import { CreateUser, UpdateUser } from '../schema/user.schema';
+import { UserRepository } from '../repositories/user.repository';
+import { CreateUser, UpdateUser } from '../schema';
 
-// CRUD normal dengan binding D1
 export class UserService {
-    private db: DrizzleD1Database<typeof schema>;
+    private repository: UserRepository;
 
     constructor(dbBinding: D1Database) {
-        this.db = getDb(dbBinding);
+        const db = getDb(dbBinding);
+        this.repository = new UserRepository(db);
     }
 
     async getById(id: string) {
-        return await this.db.query.users.findFirst({
-            where: eq(users.id, id),
-            with: {
-                events: true
-            }
-        });
+        return await this.repository.getById(id);
     }
 
     async create(data: CreateUser) {
-        const { events, ...userData } = data;
-
-        return await this.db.transaction(async (tx) => {
-            const newUser = await tx.insert(users).values(userData).returning().get();
-
-            if (events && events.length > 0) {
-                await tx.insert(userEvents).values(
-                    events.map(event => ({
-                        ...event,
-                        userId: newUser.id
-                    }))
-                );
-            }
-
-            return newUser;
-        });
+        return await this.repository.create(data);
     }
 
     async update(id: string, data: UpdateUser) {
-        // Simple update for now, doesn't handle event updates yet
-        return await this.db.update(users).set(data).where(eq(users.id, id)).returning().get();
+        return await this.repository.update(id, data);
     }
 
     async list() {
-        return await this.db.select().from(users).all();
+        return await this.repository.list();
+    }
+
+    async delete(id: string) {
+        return await this.repository.delete(id);
     }
 }

@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
-import { createUserSchema, updateUserSchema } from '../schema/user.schema';
+import { createUserSchema, updateUserSchema } from '../schema';
 import { UserService } from '../service/user.service';
 
 const users = new Hono<{ Bindings: CloudflareBindings }>();
@@ -55,6 +55,21 @@ users.put('/:id', zValidator('json', updateUserSchema), async (c) => {
         return c.json({ message: `User ${id} updated`, data: updatedUser });
     } catch (error) {
         console.error(`Error updating user ${c.req.param('id')}:`, error);
+        return c.json({ message: 'Internal Server Error' }, 500);
+    }
+});
+
+users.delete('/:id', async (c) => {
+    try {
+        const id = c.req.param('id');
+        const userService = new UserService(c.env.DB);
+        const deletedUser = await userService.delete(id);
+        if (!deletedUser) {
+            return c.json({ message: 'User not found' }, 404);
+        }
+        return c.json({ message: `User ${id} deleted` });
+    } catch (error) {
+        console.error(`Error deleting user ${c.req.param('id')}:`, error);
         return c.json({ message: 'Internal Server Error' }, 500);
     }
 });

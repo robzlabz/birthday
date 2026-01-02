@@ -1,11 +1,8 @@
 import { z } from 'zod';
-
-export const eventSchema = z.object({
-    type: z.enum(['birthday', 'anniversary']),
-    eventDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
-});
+import { eventSchema, DomainEvent } from './event.schema';
 
 export const createUserSchema = z.object({
+    email: z.email("Invalid email address"),
     firstName: z.string().min(1, "First name is required"),
     lastName: z.string().min(1, "Last name is required"),
     location: z.string().min(1, "Location is required"),
@@ -16,4 +13,13 @@ export const updateUserSchema = createUserSchema.partial();
 
 export type CreateUser = z.infer<typeof createUserSchema>;
 export type UpdateUser = z.infer<typeof updateUserSchema>;
-export type UserEvent = z.infer<typeof eventSchema>;
+
+export interface DomainUser {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    location: string;
+    createdAt: Date;
+    events?: DomainEvent[];
+}
