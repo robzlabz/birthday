@@ -6,37 +6,57 @@ import { UserService } from '../service/user.service';
 const users = new Hono<{ Bindings: CloudflareBindings }>();
 
 users.get('/', async (c) => {
-    const userService = new UserService(c.env.DB);
-    const allUsers = await userService.list();
-    return c.json({ data: allUsers });
+    try {
+        const userService = new UserService(c.env.DB);
+        const allUsers = await userService.list();
+        return c.json({ data: allUsers });
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        return c.json({ message: 'Internal Server Error' }, 500);
+    }
 });
 
 users.get('/:id', async (c) => {
-    const id = c.req.param('id');
-    const userService = new UserService(c.env.DB);
-    const user = await userService.getById(id);
-    if (!user) {
-        return c.json({ message: 'User not found' }, 404);
+    try {
+        const id = c.req.param('id');
+        const userService = new UserService(c.env.DB);
+        const user = await userService.getById(id);
+        if (!user) {
+            return c.json({ message: 'User not found' }, 404);
+        }
+        return c.json({ data: user });
+    } catch (error) {
+        console.error(`Error fetching user ${c.req.param('id')}:`, error);
+        return c.json({ message: 'Internal Server Error' }, 500);
     }
-    return c.json({ data: user });
 });
 
 users.post('/', zValidator('json', createUserSchema), async (c) => {
-    const body = c.req.valid('json');
-    const userService = new UserService(c.env.DB);
-    const newUser = await userService.create(body);
-    return c.json({ message: 'User created', data: newUser }, 201);
+    try {
+        const body = c.req.valid('json');
+        const userService = new UserService(c.env.DB);
+        const newUser = await userService.create(body);
+        return c.json({ message: 'User created', data: newUser }, 201);
+    } catch (error) {
+        console.error('Error creating user:', error);
+        return c.json({ message: 'Internal Server Error' }, 500);
+    }
 });
 
 users.put('/:id', zValidator('json', updateUserSchema), async (c) => {
-    const id = c.req.param('id');
-    const body = c.req.valid('json');
-    const userService = new UserService(c.env.DB);
-    const updatedUser = await userService.update(id, body);
-    if (!updatedUser) {
-        return c.json({ message: 'User not found or update failed' }, 404);
+    try {
+        const id = c.req.param('id');
+        const body = c.req.valid('json');
+        const userService = new UserService(c.env.DB);
+        const updatedUser = await userService.update(id, body);
+        if (!updatedUser) {
+            return c.json({ message: 'User not found or update failed' }, 404);
+        }
+        return c.json({ message: `User ${id} updated`, data: updatedUser });
+    } catch (error) {
+        console.error(`Error updating user ${c.req.param('id')}:`, error);
+        return c.json({ message: 'Internal Server Error' }, 500);
     }
-    return c.json({ message: `User ${id} updated`, data: updatedUser });
 });
 
 export default users;
