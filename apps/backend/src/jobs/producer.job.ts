@@ -2,9 +2,7 @@ import { createDb } from "../db";
 import { EventRepository } from "../repositories/event.repository";
 
 export async function producerJob(
-    event: ScheduledEvent,
     env: CloudflareBindings,
-    ctx: ExecutionContext
 ) {
     const db = createDb(env.DB);
     const eventRepo = new EventRepository(db);
