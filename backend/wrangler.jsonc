@@ -6,38 +6,13 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "backend",
 	"main": "src/index.ts",
-	"compatibility_date": "2026-01-01",
+	"compatibility_date": "2026-01-03",
 	"assets": {
 		"binding": "ASSETS",
 		"directory": "./public"
 	},
 	"observability": {
 		"enabled": true
-	},
-	"queues": {
-		"consumers": [
-			{
-				"queue": "sdt-queue-birthday",
-			},
-			{
-				"queue": "sdt-queue-email",
-			}
-		],
-		"producers": [
-			{
-				"queue": "sdt-queue-birthday",
-				"binding": "BIRTHDAY_CHECK_QUEUE"
-			},
-			{
-				"queue": "sdt-queue-email",
-				"binding": "EMAIL_QUEUE"
-			}
-		]
-	},
-	"triggers": {
-		"crons": [
-			"0 * * * *"
-		]
 	},
 	/**
 	 * Smart Placement
@@ -61,13 +36,12 @@
 	 * Service Bindings (communicate between multiple Workers)
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
 	 */
-	// "services": [  {   "binding": "MY_SERVICE",   "service": "my-service"  } ]
+	// "services": [  {   "binding": "MY_SERVICE",   "service": "my-service"  } ],
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_name": "birthday",
-			"database_id": "a0da7b14-a7b3-4164-8b69-d247b04c161b",
-			"migrations_dir": "drizzle"
+			"database_name": "birthday-db",
+			"database_id": "b2253516-3be0-497d-ac58-26929529ea98"
 		}
 	]
 }

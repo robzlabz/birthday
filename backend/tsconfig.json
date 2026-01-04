@@ -11,9 +11,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "types": [
-      "node",
-      "@cloudflare/workers-types",
-      "./worker-configuration.d.ts"
+        "./worker-configuration.d.ts"
     ]
   },
 }

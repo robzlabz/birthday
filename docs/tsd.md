@@ -2,7 +2,7 @@
 
 **Date:** 2026-01-04
 **Author:** Robbyn Rahmandaru
-**Status:** Draft / Proposed
+**Status:** Proposed
 **Stack:** TypeScript, Hono, Cloudflare Workers, Drizzle ORM, D1 Database, Cloudflare Queues.
 
 ---
@@ -32,38 +32,41 @@ Sistem menggunakan pendekatan **Clean Architecture** (Separation of Concerns) ya
 2. **Service Layer:** Berisi logika bisnis (perhitungan waktu, validasi).
 3. **Data Layer (Repository):** Abstraksi ke database D1 menggunakan Drizzle ORM.
 4. **Worker Layer (Async Processing):**
-* **Producer (Cron):** Berjalan setiap jam/menit untuk mencari user yang jadwalnya sudah tiba.
-* **Consumer (Queue Worker):** Memproses pengiriman email secara paralel untuk skalabilitas tinggi.
-
-
+   * **Producer (Cron):** Berjalan **setiap jam** menggunakan Cloudflare Cron Triggers untuk mencari event yang jadwalnya sudah tiba.
+   * **Consumer (Queue Worker):** Memproses pengiriman email secara paralel menggunakan **Cloudflare Queues**.
 
 ---
 
 ## 3. Database Design (Schema)
 
-Menggunakan **Cloudflare D1 (SQLite)** dengan **Drizzle ORM**.
+Menggunakan **Cloudflare D1 (SQLite)** dengan **Drizzle ORM**. Model data dirancang fleksibel (Generic Events) agar dapat menangani berbagai jenis perayaan (Birthday, Anniversary, dll) tanpa perlu mengubah schema database.
 
 ### 3.1 Table: `users`
 
-Menyimpan data pengguna dan jadwal notifikasi berikutnya.
+Menyimpan data profil pengguna.
 
 | Column | Type | Description |
 | --- | --- | --- |
 | `id` | TEXT (UUID) | Primary Key. |
-| `first_name` | TEXT | Nama depan user.
-
- |
-| `last_name` | TEXT | Nama belakang user.
-
- |
-| `birth_date` | TEXT | Format YYYY-MM-DD. |
+| `email` | TEXT | Email user. |
+| `first_name` | TEXT | Nama depan user. |
+| `last_name` | TEXT | Nama belakang user. |
 | `location` | TEXT | IANA Timezone (e.g., 'Asia/Jakarta'). |
+
+### 3.2 Table: `events`
+
+Menyimpan jadwal notifikasi untuk user tertentu. Tabel ini menjawab kebutuhan untuk tidak menambah kolom baru saat ada tipe event baru (e.g., Anniversary).
+
+| Column | Type | Description |
+| --- | --- | --- |
+| `id` | TEXT (UUID) | Primary Key. |
+| `user_id` | TEXT | Foreign Key ke users.id. |
+| `type` | TEXT | Tipe event (e.g., 'BIRTHDAY', 'WORK_ANNIVERSARY'). |
+| `date` | TEXT | Tanggal dasar event (format YYYY-MM-DD). |
 | `next_notify_at` | INTEGER | Timestamp (UTC) kapan notifikasi harus dikirim. **Indexed.** |
-| `version` | INTEGER | Optimistic Locking untuk mencegah Race Condition.
+| `version` | INTEGER | Optimistic Locking untuk penjadwalan. |
 
- |
-
-### 3.2 Table: `notification_logs`
+### 3.3 Table: `notification_logs`
 
 Menyimpan riwayat pengiriman untuk audit dan idempotency check.
 
@@ -71,9 +74,7 @@ Menyimpan riwayat pengiriman untuk audit dan idempotency check.
 | --- | --- | --- |
 | `id` | TEXT | Primary Key. |
 | `user_id` | TEXT | Foreign Key ke users.id. |
-| `type` | TEXT | Tipe notifikasi (e.g., 'BIRTHDAY', 'ANNIVERSARY' ).
-
- |
+| `type` | TEXT | Tipe notifikasi. |
 | `sent_at` | INTEGER | Waktu pengiriman. |
 | `status` | TEXT | 'SUCCESS' atau 'FAILED'. |
 
@@ -83,101 +84,98 @@ Menyimpan riwayat pengiriman untuk audit dan idempotency check.
 
 ### 4.1 Timezone & Scheduling Strategy
 
-Alih-alih mengecek "Siapa yang ulang tahun hari ini?", sistem menghitung target waktu spesifik (Timestamp UTC).
+Sistem menghitung target waktu spesifik (Timestamp UTC) berdasarkan event date, bukan sekadar tanggal hari ini.
 
-* **Logic:** `SchedulerService.calculateNextRun(birthDate, location)`
+* **Logic:** `SchedulerService.calculateNextRun(eventDate, location)`
 * **Proses:**
-1. Ambil waktu sekarang di Timezone user.
-2. Set target ke jam 09:00 pagi tahun ini.
-3. Jika target < sekarang, set ke tahun depan.
-4. Konversi ke UTC dan simpan di `next_notify_at`.
+   1. Ambil waktu sekarang di Timezone user.
+   2. Set target ke jam 09:00 pagi pada tanggal event di tahun ini.
+   3. **Leap Year Handling:** Jika event date adalah **29 Februari**:
+      * Jika tahun ini **Kabisat**, target tetap 29 Feb.
+      * Jika tahun ini **Bukan Kabisat**, target diubah ke **1 Maret**.
+   4. Jika target < sekarang, set ke tahun depan (ulangi logika leap year untuk tahun depan).
+   5. Konversi ke UTC dan simpan di `events.next_notify_at`.
 
-
-
-4.2 Scalability Strategy (100M Scale) 
+### 4.2 Scalability Strategy (100M Scale)
 
 Untuk menangani volume tinggi, proses dipisah menjadi dua:
 
 1. **The Producer (Cron Job):**
-* Query ringan: `SELECT id FROM users WHERE next_notify_at <= NOW() LIMIT 1000`.
-* Tugas: Hanya melempar `user_id` ke **Cloudflare Queue**.
-* Sifat: Cepat, memori rendah.
-
+   * Berjalan setiap jam.
+   * Query ringan: `SELECT id, user_id, type FROM events WHERE next_notify_at <= NOW() LIMIT 1000`.
+   * Tugas: Melempar payload (event_id, user_id) ke **Cloudflare Queue**.
+   * Sifat: Cepat, memori rendah.
 
 2. **The Consumer (Queue Worker):**
-* Triggered by Queue. Cloudflare otomatis men-scale jumlah worker sesuai panjang antrian.
-* Tugas: Fetch data user -> Call API Email -> Update DB.
-* Batching: Memproses 10-100 pesan per batch untuk mengurangi overhead koneksi database.
+   * Triggered by Queue. Cloudflare otomatis men-scale jumlah worker.
+   * Tugas: Fetch user details -> Call API Email -> Update DB (`events.next_notify_at`).
+   * Batching: Memproses 10-100 pesan per batch.
 
-
-
-4.3 Reliability & Recovery Strategy 
+### 4.3 Reliability & Recovery Strategy
 
 * **Masalah:** Server mati selama 24 jam.
 * **Solusi:** Query menggunakan *inequality*: `WHERE next_notify_at <= NOW()`.
 * **Hasil:** Saat server menyala kembali, semua jadwal yang "tertunggak" (past due) akan otomatis terambil oleh Producer dan diproses.
 
-4.4 Race Condition Prevention (Exactly-Once Delivery) 
+### 4.4 Race Condition Prevention (Exactly-Once Delivery)
 
 Menggunakan 3 lapis pertahanan:
 
-1. **Queue Visibility Timeout:** Mencegah dua consumer mengambil pesan yang sama dari antrian.
-2. **Idempotency Log Check:** Sebelum kirim, cek tabel `notification_logs` apakah sudah ada kiriman sukses tahun ini.
-3. **Optimistic Locking:** Saat update database setelah kirim email:
-```sql
-UPDATE users SET next_notify_at = ..., version = version + 1
-WHERE id = ? AND version = ? -- Version harus sama dengan saat dibaca
-
-```
-
-
+1. **Queue Visibility Timeout:** Mencegah dua consumer mengambil pesan yang sama.
+2. **Idempotency Log Check:** Cek tabel `notification_logs`.
+3. **Optimistic Locking pada Event:**
+   ```sql
+   UPDATE events SET next_notify_at = ..., version = version + 1
+   WHERE id = ? AND version = ?
+   ```
 
 ---
 
 ## 5. API Specification
 
-5.1 Create User 
+### 5.1 Create User
 
 * **Endpoint:** `POST /user`
-* **Body:** `{ firstName, lastName, birthDate, location }`
-* **Process:** Validasi input, hitung `next_notify_at`, simpan ke DB.
+* **Body:** `{ firstName, lastName, email, birthDate, location }`
+* **Process:**
+   1. Simpan data user.
+   2. Otomatis buat event 'BIRTHDAY' di tabel `events`.
+   3. Hitung dan simpan `next_notify_at`.
 
-5.2 Update User 
+### 5.2 Update User
 
 * **Endpoint:** `PUT /user/:id`
-* **Body:** `{ firstName, lastName, birthDate, location }`
-* **Process:** Update data, **re-calculate** `next_notify_at` (karena timezone/tgl lahir mungkin berubah).
+* **Body:** `{ firstName, lastName, location, birthDate }`
+* **Process:**
+   1. Update data user.
+   2. Jika `birthDate` atau `location` berubah, update event 'BIRTHDAY' dan re-calculate `next_notify_at`.
 
-5.3 Delete User 
+### 5.3 Delete User
 
 * **Endpoint:** `DELETE /user/:id`
+* **Process:** Cascade delete user dan semua events-nya.
 
 ---
 
-6. Testing Strategy 
+## 6. Testing Strategy
 
 ### 6.1 Unit Testing (Vitest)
 
 Menggunakan **Dependency Injection** pada Service Layer.
 
-* **Mocking:** `IUserRepository` dan `IEmailService` di-mock.
+* **Mocking:** Repositories dan EmailService.
 * **Test Cases:**
-* Perhitungan Timezone (Pastikan konversi Jakarta/New York ke UTC benar).
-* Logika Recovery (Pastikan tanggal lampau tetap diproses).
-* Error Handling (Simulasi API Email timeout).
-
-
+   * Perhitungan Timezone (Jakarta/New York).
+   * **Leap Year Case:** Pastikan user lahir 29 Feb dinotifikasi 1 Maret pada tahun regular.
+   * Queue Consumer Logic.
 
 ### 6.2 Integration Testing
 
-Menggunakan `app.request` dari Hono untuk mengetes endpoint HTTP tanpa menjalankan server full.
+Menggunakan `app.request` dari Hono untuk mengetes endpoint HTTP.
 
 ---
 
 ## 7. Future Improvements
 
-* 
-**Anniversary Support:** Menambahkan kolom `anniversary_date` dan logika serupa di `SchedulerService`.
-
-
-* **Database Scaling:** Migrasi dari D1 ke PostgreSQL (Hyperdrive) jika *write throughput* melebihi batas D1.
+* **Custom Events:** API endpoint untuk menambah custom event (Anniversary, Custom Reminder) tanpa ubah database.
+* **Database Scaling:** Migrasi ke PostgreSQL (Hyperdrive) untuk throughput write yang lebih tinggi.

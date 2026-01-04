@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1767535484371,
+      "tag": "0000_handy_ronan",
+      "breakpoints": true
+    }
+  ]
+}
