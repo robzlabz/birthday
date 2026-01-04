@@ -7,6 +7,7 @@ import { producerJob } from "./jobs/producer.job";
 import { consumerJob } from "./jobs/consumer.job";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
+export { app };
 
 app.use("*", logger());
 app.use("*", cors());
