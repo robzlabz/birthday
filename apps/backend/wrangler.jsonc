@@ -41,7 +41,8 @@
 		{
 			"binding": "DB",
 			"database_name": "birthday-db",
-			"database_id": "b2253516-3be0-497d-ac58-26929529ea98"
+			"database_id": "b2253516-3be0-497d-ac58-26929529ea98",
+			"migrations_dir": "drizzle"
 		}
 	],
 	"queues": {

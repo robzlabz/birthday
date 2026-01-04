@@ -1,5 +1,5 @@
 import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
-import { sql } from "drizzle-orm";
+import { sql, relations } from "drizzle-orm";
 
 export const users = sqliteTable("users", {
     id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
@@ -30,3 +30,14 @@ export const notificationLogs = sqliteTable("notification_logs", {
     sentAt: integer("sent_at", { mode: "timestamp" }).notNull(),
     status: text("status").notNull(), // 'SUCCESS', 'FAILED'
 });
+
+export const usersRelations = relations(users, ({ many }) => ({
+    events: many(events),
+}));
+
+export const eventsRelations = relations(events, ({ one }) => ({
+    user: one(users, {
+        fields: [events.userId],
+        references: [users.id],
+    }),
+}));
