@@ -1,14 +1,16 @@
-import { getDb } from '../db';
-import { UserRepository } from '../repositories/user.repository';
+import { IUserRepository, UserRepository } from '../repositories/user.repository';
 import { CreateUser, UpdateUser } from '../schema';
 
-export class UserService {
-    private repository: UserRepository;
+export interface IUserService {
+    getById(id: string): Promise<any>;
+    create(data: CreateUser): Promise<any>;
+    update(id: string, data: UpdateUser): Promise<any>;
+    list(): Promise<any[]>;
+    delete(id: string): Promise<any>;
+}
 
-    constructor(dbBinding: D1Database) {
-        const db = getDb(dbBinding);
-        this.repository = new UserRepository(db);
-    }
+export class UserService implements IUserService {
+    constructor(private repository: IUserRepository) { }
 
     async getById(id: string) {
         return await this.repository.getById(id);

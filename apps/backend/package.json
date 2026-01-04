@@ -4,7 +4,8 @@
 	"scripts": {
 		"dev": "wrangler dev",
 		"deploy": "wrangler deploy --minify",
-		"cf-typegen": "wrangler types --env-interface CloudflareBindings"
+		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
+		"test": "vitest run"
 	},
 	"dependencies": {
 		"@hono/zod-validator": "^0.7.6",
@@ -15,9 +16,18 @@
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20260101.0",
+		"@libsql/client": "^0.15.15",
+		"@types/better-sqlite3": "^7.6.13",
 		"@types/node": "^25.0.3",
+		"@vitest/ui": "^4.0.16",
 		"drizzle-kit": "^0.31.8",
 		"typescript": "^5.9.3",
+		"vitest": "^4.0.16",
 		"wrangler": "^4.54.0"
+	},
+	"pnpm": {
+		"overrides": {
+			"drizzle-orm": "^0.45.1"
+		}
 	}
 }

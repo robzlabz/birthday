@@ -5,8 +5,10 @@ import usersRoute from "./routes/users";
 import timezoneRoute from "./routes/timezone";
 import { EventService } from "./service/event.service";
 import { EmailService } from "./service/email.service";
+import { EventRepository } from "./repositories/event.repository";
+import { getDb } from "./db";
 import { requestId } from "hono/request-id";
-import { DELAY_SECONDS } from "./constant/constant";
+import { EMAIL_DELAY_SECOND } from "./constant/constant";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 
@@ -29,21 +31,25 @@ export default {
   fetch: app.fetch,
   async queue(batch: MessageBatch<any>, env: CloudflareBindings): Promise<void> {
     console.log(`[Queue] Processing batch of ${batch.messages.length} messages from ${batch.queue}`);
-    const emailService = new EmailService(env.DB);
+    const db = getDb(env.DB);
+    const eventRepo = new EventRepository(db);
+    const emailService = new EmailService(eventRepo);
 
     for (const message of batch.messages) {
       try {
         await emailService.sendEventMessage(message.body);
         message.ack();
       } catch (error) {
-        message.retry({ delaySeconds: DELAY_SECONDS });
+        message.retry({ delaySeconds: EMAIL_DELAY_SECOND });
         console.error(`[Queue] Failed to process message ${message.id}:`, error);
       }
     }
   },
   async scheduled(event: ScheduledEvent, env: CloudflareBindings, ctx: ExecutionContext): Promise<void> {
     console.log("Cron job triggered", event.cron);
-    const eventService = new EventService(env.DB, env.BIRTHDAY_CHECK_QUEUE);
+    const db = getDb(env.DB);
+    const eventRepo = new EventRepository(db);
+    const eventService = new EventService(eventRepo, env.BIRTHDAY_CHECK_QUEUE);
     ctx.waitUntil(eventService.checkAndQueue());
   },
 };

@@ -1,14 +1,14 @@
-import { getDb } from '../db';
 import { EventRepository } from '../repositories/event.repository';
+import { TimezoneService } from './timezone.service';
 
 export class EventService {
-    private repository: EventRepository;
-    private queue: Queue;
+    private timezoneService: TimezoneService;
 
-    constructor(dbBinding: D1Database, queueBinding: Queue) {
-        const db = getDb(dbBinding);
-        this.repository = new EventRepository(db);
-        this.queue = queueBinding;
+    constructor(
+        private repository: EventRepository,
+        private queue: Queue
+    ) {
+        this.timezoneService = new TimezoneService();
     }
 
     /**
@@ -19,7 +19,7 @@ export class EventService {
         console.log(`[EventService] Checking events for reference time: ${now.toISOString()}`);
 
         const targetHour = 9;
-        const { activeTz, missedTz } = this.getTimezoneWindows(now, targetHour);
+        const { activeTz, missedTz } = this.timezoneService.getTimezoneWindows(now, targetHour);
 
         console.log(`[EventService] Active timezones (current 9am): ${activeTz.length}`);
         console.log(`[EventService] Catch-up timezones (missed 9am): ${missedTz.length}`);
@@ -78,30 +78,6 @@ export class EventService {
         }
     }
 
-    private getTimezoneWindows(now: Date, targetHour: number) {
-        const allTimezones = Intl.supportedValuesOf("timeZone");
-        const activeTz: string[] = [];
-        const missedTz: string[] = [];
-
-        for (const tz of allTimezones) {
-            const formatter = new Intl.DateTimeFormat('en-US', {
-                timeZone: tz,
-                hour: 'numeric',
-                hour12: false
-            });
-            const localHour = parseInt(formatter.format(now));
-
-            if (localHour === targetHour) {
-                activeTz.push(tz);
-            } else if (localHour > targetHour && localHour < targetHour + 2) {
-                // If it's between 10am and 11am, it might have been missed if service was down at 9am.
-                // Our idempotency check ensures we don't send twice.
-                missedTz.push(tz);
-            }
-        }
-
-        return { activeTz, missedTz };
-    }
 
     private groupByLocalDate(now: Date, timezones: string[]): Record<string, string[]> {
         const groups: Record<string, string[]> = {};

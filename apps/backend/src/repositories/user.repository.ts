@@ -4,12 +4,20 @@ import { DrizzleD1Database } from 'drizzle-orm/d1';
 import * as schema from '../db/schema';
 import { CreateUser, UpdateUser, UserEventModel } from '../schema';
 
-export class UserRepository {
+export interface IUserRepository {
+    getById(id: string): Promise<any>;
+    list(): Promise<any[]>;
+    create(data: CreateUser): Promise<any>;
+    update(id: string, data: UpdateUser): Promise<any>;
+    delete(id: string): Promise<any>;
+}
+
+export class UserRepository implements IUserRepository {
     constructor(private db: DrizzleD1Database<typeof schema>) { }
 
     async getById(id: string) {
         return await this.db.query.users.findFirst({
-            where: eq(users.id, id),
+            where: eq(users.id, id) as any,
             with: {
                 events: true
             }
@@ -36,7 +44,12 @@ export class UserRepository {
                 );
             }
 
-            return newUser;
+            return await tx.query.users.findFirst({
+                where: eq(users.id, newUser.id) as any,
+                with: {
+                    events: true
+                }
+            });
         });
     }
 
@@ -46,7 +59,7 @@ export class UserRepository {
         return await this.db.transaction(async (tx) => {
             const updatedUser = await tx.update(users)
                 .set(userData)
-                .where(eq(users.id, id))
+                .where(eq(users.id, id) as any)
                 .returning()
                 .get();
 
@@ -54,7 +67,7 @@ export class UserRepository {
 
             if (events !== undefined) {
                 // Remove existing events
-                await tx.delete(userEvents).where(eq(userEvents.userId, id));
+                await tx.delete(userEvents).where(eq(userEvents.userId, id) as any);
 
                 // Insert new events if any
                 if (events.length > 0) {
@@ -70,7 +83,7 @@ export class UserRepository {
 
             // Return user with events
             return await tx.query.users.findFirst({
-                where: eq(users.id, id),
+                where: eq(users.id, id) as any,
                 with: {
                     events: true
                 }
@@ -79,6 +92,6 @@ export class UserRepository {
     }
 
     async delete(id: string) {
-        return await this.db.delete(users).where(eq(users.id, id)).returning().get();
+        return await this.db.delete(users).where(eq(users.id, id) as any).returning().get();
     }
 }

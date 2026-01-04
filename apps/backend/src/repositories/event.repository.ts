@@ -8,7 +8,16 @@ export interface DiscoveryResult {
     event: typeof userEvents.$inferSelect;
 }
 
-export class EventRepository {
+export interface IEventRepository {
+    findActiveEvents(timezones: string[], monthDay: string): Promise<DiscoveryResult[]>;
+    findLeaplingEvents(timezones: string[]): Promise<DiscoveryResult[]>;
+    isAlreadySent(userId: string, eventId: string, year: number): Promise<boolean>;
+    getLogStatus(userId: string, eventId: string, year: number): Promise<any>;
+    markAsSent(userId: string, eventId: string, year: number, status?: 'sent' | 'pending' | 'failed'): Promise<any>;
+    updateLogStatus(userId: string, eventId: string, year: number, status: 'sent' | 'pending' | 'failed'): Promise<any>;
+}
+
+export class EventRepository implements IEventRepository {
     constructor(private db: DrizzleD1Database<typeof schema>) { }
 
     /**

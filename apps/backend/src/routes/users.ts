@@ -1,7 +1,9 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { createUserSchema, updateUserSchema } from '../schema';
-import { UserService } from '../service/user.service';
+import { UserService, IUserService } from '../service/user.service';
+import { UserRepository } from '../repositories/user.repository';
+import { getDb } from '../db';
 
 const users = new Hono<{ Bindings: CloudflareBindings }>();
 
@@ -9,7 +11,9 @@ const users = new Hono<{ Bindings: CloudflareBindings }>();
 users.get('/:id', async (c) => {
     try {
         const id = c.req.param('id');
-        const userService = new UserService(c.env.DB);
+        const db = getDb(c.env.DB);
+        const userRepo = new UserRepository(db);
+        const userService = new UserService(userRepo);
         const user = await userService.getById(id);
         if (!user) {
             return c.json({ message: 'User not found' }, 404);
@@ -24,7 +28,9 @@ users.get('/:id', async (c) => {
 users.post('/', zValidator('json', createUserSchema), async (c) => {
     try {
         const body = c.req.valid('json');
-        const userService = new UserService(c.env.DB);
+        const db = getDb(c.env.DB);
+        const userRepo = new UserRepository(db);
+        const userService = new UserService(userRepo);
         const newUser = await userService.create(body);
         return c.json({ message: 'User created', data: newUser }, 201);
     } catch (error) {
@@ -37,7 +43,9 @@ users.put('/:id', zValidator('json', updateUserSchema), async (c) => {
     try {
         const id = c.req.param('id');
         const body = c.req.valid('json');
-        const userService = new UserService(c.env.DB);
+        const db = getDb(c.env.DB);
+        const userRepo = new UserRepository(db);
+        const userService = new UserService(userRepo);
         const updatedUser = await userService.update(id, body);
         if (!updatedUser) {
             return c.json({ message: 'User not found or update failed' }, 404);
@@ -52,7 +60,9 @@ users.put('/:id', zValidator('json', updateUserSchema), async (c) => {
 users.delete('/:id', async (c) => {
     try {
         const id = c.req.param('id');
-        const userService = new UserService(c.env.DB);
+        const db = getDb(c.env.DB);
+        const userRepo = new UserRepository(db);
+        const userService = new UserService(userRepo);
         const deletedUser = await userService.delete(id);
         if (!deletedUser) {
             return c.json({ message: 'User not found' }, 404);
