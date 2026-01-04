@@ -71,6 +71,20 @@ export class UserRepository {
         });
     }
 
+    async findAll() {
+        return this.db.query.users.findMany({
+            orderBy: (users, { desc }) => [desc(users.createdAt)],
+            with: {
+                // If we want events, we need relations defined. For now just users.
+                // But UI likely wants to see the birthday/event date?
+                // Schema doesn't have relations defined in `schema.ts`.
+                // So I will just return users. UI can query get users.
+                // Or I fetch events separately?
+                // Let's stick to simple users list first.
+            }
+        });
+    }
+
     async delete(id: string) {
         return this.db.delete(users).where(eq(users.id, id)).returning();
     }

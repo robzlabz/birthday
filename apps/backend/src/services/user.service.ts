@@ -137,4 +137,8 @@ export class UserService {
     async deleteUser(id: string) {
         return this.userRepo.delete(id);
     }
+
+    async listUsers() {
+        return this.userRepo.findAll();
+    }
 }

@@ -39,6 +39,14 @@ const UpdateUserSchema = z.object({
 });
 
 // Routes
+app.get("/", async (c) => {
+    const db = createDb(c.env.DB);
+    const userRepo = new UserRepository(db);
+    const userService = new UserService(userRepo);
+    const users = await userService.listUsers();
+    return c.json(users);
+});
+
 app.post(
     "/",
     zValidator("json", CreateUserSchema),
