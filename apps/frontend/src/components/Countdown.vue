@@ -19,6 +19,8 @@ const countdownText = computed(() => {
         const bMonth = parts[1];
         const bDay = parts[2];
 
+        if (!bMonth || !bDay) return "Invalid Date";
+
         const currentTime = now.value;
         // Current time in User's Timezone
         const userNow = toZonedTime(currentTime, props.location);
