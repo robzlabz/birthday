@@ -43,5 +43,25 @@
 			"database_name": "birthday-db",
 			"database_id": "b2253516-3be0-497d-ac58-26929529ea98"
 		}
-	]
+	],
+	"queues": {
+		"producers": [
+			{
+				"binding": "EMAIL_QUEUE",
+				"queue": "birthday-email-queue"
+			}
+		],
+		"consumers": [
+			{
+				"queue": "birthday-email-queue",
+				"max_batch_size": 10,
+				"max_batch_timeout": 5
+			}
+		]
+	},
+	"triggers": {
+		"crons": [
+			"0 * * * *"
+		]
+	}
 }
