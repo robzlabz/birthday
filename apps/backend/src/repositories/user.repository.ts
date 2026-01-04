@@ -41,7 +41,41 @@ export class UserRepository {
     }
 
     async update(id: string, data: UpdateUser) {
-        return await this.db.update(users).set(data).where(eq(users.id, id)).returning().get();
+        const { events, ...userData } = data;
+
+        return await this.db.transaction(async (tx) => {
+            const updatedUser = await tx.update(users)
+                .set(userData)
+                .where(eq(users.id, id))
+                .returning()
+                .get();
+
+            if (!updatedUser) return null;
+
+            if (events !== undefined) {
+                // Remove existing events
+                await tx.delete(userEvents).where(eq(userEvents.userId, id));
+
+                // Insert new events if any
+                if (events.length > 0) {
+                    await tx.insert(userEvents).values(
+                        events.map((event: UserEventModel) => ({
+                            ...event,
+                            userId: id,
+                            monthDay: event.eventDate.substring(5, 10) // Extract MM-DD
+                        }))
+                    );
+                }
+            }
+
+            // Return user with events
+            return await tx.query.users.findFirst({
+                where: eq(users.id, id),
+                with: {
+                    events: true
+                }
+            });
+        });
     }
 
     async delete(id: string) {

@@ -5,16 +5,6 @@ import { UserService } from '../service/user.service';
 
 const users = new Hono<{ Bindings: CloudflareBindings }>();
 
-users.get('/', async (c) => {
-    try {
-        const userService = new UserService(c.env.DB);
-        const allUsers = await userService.list();
-        return c.json({ data: allUsers });
-    } catch (error) {
-        console.error('Error fetching users:', error);
-        return c.json({ message: 'Internal Server Error' }, 500);
-    }
-});
 
 users.get('/:id', async (c) => {
     try {

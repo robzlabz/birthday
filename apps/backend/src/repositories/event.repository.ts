@@ -55,7 +55,12 @@ export class EventRepository {
      * Guaranteed by unique composite index in schema.
      */
     async isAlreadySent(userId: string, eventId: string, year: number): Promise<boolean> {
-        const log = await this.db.select()
+        const log = await this.getLogStatus(userId, eventId, year);
+        return !!log;
+    }
+
+    async getLogStatus(userId: string, eventId: string, year: number) {
+        return await this.db.select()
             .from(sentLogs)
             .where(
                 and(
@@ -65,15 +70,28 @@ export class EventRepository {
                 )
             )
             .get();
-        return !!log;
     }
 
-    async markAsSent(userId: string, eventId: string, year: number) {
+    async markAsSent(userId: string, eventId: string, year: number, status: 'sent' | 'pending' | 'failed' = 'pending') {
         return await this.db.insert(sentLogs).values({
             userId,
             eventId,
             year,
-            status: 'sent'
+            status
         }).onConflictDoNothing().returning().get();
+    }
+
+    async updateLogStatus(userId: string, eventId: string, year: number, status: 'sent' | 'pending' | 'failed') {
+        return await this.db.update(sentLogs)
+            .set({ status })
+            .where(
+                and(
+                    eq(sentLogs.userId, userId),
+                    eq(sentLogs.eventId, eventId),
+                    eq(sentLogs.year, year)
+                )
+            )
+            .returning()
+            .get();
     }
 }

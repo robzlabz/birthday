@@ -68,8 +68,8 @@ export class EventService {
             const alreadySent = await this.repository.isAlreadySent(item.user.id, item.event.id, year);
             if (!alreadySent) {
                 toQueue.push(item);
-                // Mark as sent immediately to prevent race conditions if multiple instances run
-                await this.repository.markAsSent(item.user.id, item.event.id, year);
+                // Mark as pending initially to prevent race conditions if multiple instances run
+                await this.repository.markAsSent(item.user.id, item.event.id, year, 'pending');
             }
         }
 
@@ -133,6 +133,7 @@ export class EventService {
                     firstName: user.firstName,
                     lastName: user.lastName,
                     location: user.location,
+                    eventId: event.id,
                     eventType: event.type,
                     eventDate: event.eventDate,
                     processYear: year
