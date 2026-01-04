@@ -1,0 +1,600 @@
+<-- GET /manual-trigger
+[Cron] Checking for pending events...
+[Cron] Found 100 pending events. Enqueuing...
+[Cron] Done enqueuing.
+--> GET /manual-trigger 200 139ms
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_0@example.com (Asia/Jakarta)...
+[wrangler:info] GET /manual-trigger 200 OK (253ms)
+[NotificationService] Event 57a62443-eee1-4c19-a154-ce178b67bbae processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_1@example.com (Asia/Jakarta)...
+[NotificationService] Event 6dbe9591-5dd1-4e93-bdc1-93d6233c70a9 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_2@example.com (Asia/Jakarta)...
+[NotificationService] Event a7d5f1f1-85d6-4372-b0af-00fcaf3c7e1d processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_3@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_4@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_5@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_6@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_7@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_8@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_9@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[wrangler:info] QUEUE birthday-email-queue 3/10 (16631ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_10@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_11@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_12@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_13@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_14@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_15@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_16@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_17@example.com (Asia/Jakarta)...
+[NotificationService] Event 9a184bb9-588a-4d98-8211-84d46ea94530 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_18@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_19@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[wrangler:info] QUEUE birthday-email-queue 1/10 (14204ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_20@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_21@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_22@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_23@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_24@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_25@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_26@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_27@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_28@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_29@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[wrangler:info] QUEUE birthday-email-queue 0/10 (2084ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_30@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_31@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_32@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_33@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_34@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_35@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_36@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_37@example.com (Asia/Jakarta)...
+[NotificationService] Event c2ec37c7-934b-49fe-97d1-9671684e00f2 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_38@example.com (Asia/Jakarta)...
+[NotificationService] Event 6e1a0112-0064-4806-8fa6-7bcd18486f6d processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_39@example.com (Asia/Jakarta)...
+[NotificationService] Event 3a554461-4521-4880-82f6-a6f238bbc617 processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 3/10 (8779ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_40@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_41@example.com (Asia/Jakarta)...
+[NotificationService] Event d3cebc64-c5c4-41d1-b019-c7994d3a0af0 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_42@example.com (Asia/Jakarta)...
+[NotificationService] Event 7a252c75-b94c-4904-878a-419d1531bd1a processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_43@example.com (Asia/Jakarta)...
+[NotificationService] Event 537be7cb-267e-4916-94a5-cb8a4cac4563 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_44@example.com (Asia/Jakarta)...
+[NotificationService] Event 5cff89fd-cf1f-4062-83bd-eb514230d75c processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_45@example.com (Asia/Jakarta)...
+[NotificationService] Event 044b1409-e5af-4dc5-b07e-f310bdbd0464 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_46@example.com (Asia/Jakarta)...
+[NotificationService] Event 555327de-e692-4fca-b233-6245cef814a5 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_47@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_48@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_49@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[wrangler:info] QUEUE birthday-email-queue 6/10 (7972ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_50@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_51@example.com (Asia/Jakarta)...
+[NotificationService] Event cd31513b-5d3b-4b9e-acad-ea9e3a69ca9e processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_52@example.com (Asia/Jakarta)...
+[NotificationService] Event 254c32d3-2446-4bc0-9f1e-f5f7b55aedc0 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_53@example.com (Asia/Jakarta)...
+[NotificationService] Event a16677f6-6c4e-4ba0-a2fe-e4a885f636d3 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_54@example.com (Asia/Jakarta)...
+[NotificationService] Event 9cb27418-135e-4363-9722-08587d74815e processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_55@example.com (Asia/Jakarta)...
+[NotificationService] Event 3e0c9b92-6282-40a7-a11a-01958145538c processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_56@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_57@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_58@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_59@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[wrangler:info] QUEUE birthday-email-queue 5/10 (8394ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_60@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_61@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_62@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_63@example.com (Asia/Jakarta)...
+[NotificationService] Event be151bb5-44df-413b-b892-342187604194 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_64@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_65@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_66@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_67@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_68@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_69@example.com (Asia/Jakarta)...
+[NotificationService] Event 1eab3fab-86a6-4b20-a35c-401308f41269 processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 2/10 (9172ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_70@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_71@example.com (Asia/Jakarta)...
+[NotificationService] Event 46798af4-30a8-4ecf-b0ef-cb24119df87e processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_72@example.com (Asia/Jakarta)...
+[NotificationService] Event e1c3c246-7b8b-4d16-a18e-224cd1553fbe processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_73@example.com (Asia/Jakarta)...
+[NotificationService] Event 8927ca5f-7cc8-47cc-b16d-6ae4f79d1608 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_74@example.com (Asia/Jakarta)...
+[NotificationService] Event 2f1894df-19ad-43a7-b08e-3d84428866f9 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_75@example.com (Asia/Jakarta)...
+[NotificationService] Event 7781ed9f-b3e2-40cb-ac26-7c38f85facb4 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_76@example.com (Asia/Jakarta)...
+[NotificationService] Event c47ac179-57c4-4262-9b6d-94512446dd43 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_77@example.com (Asia/Jakarta)...
+[NotificationService] Event 825d7a24-d8a7-44d1-8218-2ef933c0941c processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_78@example.com (Asia/Jakarta)...
+[NotificationService] Event 3e2b9215-36d7-4c95-8871-5e823f172ade processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_79@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[wrangler:info] QUEUE birthday-email-queue 8/10 (7134ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_80@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_81@example.com (Asia/Jakarta)...
+[NotificationService] Event a5efe541-b6d3-4d18-a515-29f5360e65b5 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_82@example.com (Asia/Jakarta)...
+[NotificationService] Event a32e4a69-4f25-4e18-a593-eb7e4a6fcba0 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_83@example.com (Asia/Jakarta)...
+[NotificationService] Event 73755241-0617-465d-bcc2-fe6c67872934 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_84@example.com (Asia/Jakarta)...
+[NotificationService] Event b8dc9436-da68-48a1-b32b-acd4180e810c processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_85@example.com (Asia/Jakarta)...
+[NotificationService] Event 741d1859-16b3-4fa3-9b10-aaf787d1cc1a processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_86@example.com (Asia/Jakarta)...
+[NotificationService] Event 8681daf5-50b7-4db3-be2e-a26615a18f78 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_87@example.com (Asia/Jakarta)...
+[NotificationService] Event bb9b1ee3-a4d9-4899-b57a-9012bb8c674f processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_88@example.com (Asia/Jakarta)...
+[NotificationService] Event 2db2bbbb-6ad7-4735-832d-ec4e53d420da processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_89@example.com (Asia/Jakarta)...
+[NotificationService] Event 20af8a95-5c86-45e7-9002-ecb68ce02d42 processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 9/10 (3440ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_90@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_91@example.com (Asia/Jakarta)...
+[NotificationService] Event c11ec9e8-5e75-4dc3-b998-10d0d97bd359 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_92@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_93@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_94@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_95@example.com (Asia/Jakarta)...
+[NotificationService] Event d2effeb4-a2f9-416d-8f7b-004dc09b9bab processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_96@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_97@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_98@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_99@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[wrangler:info] QUEUE birthday-email-queue 2/10 (15129ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_3@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_4@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_5@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_6@example.com (Asia/Jakarta)...
+[NotificationService] Event fb2c36df-72e6-4f18-adad-2b6ec834b2c5 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_7@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_8@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_9@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_10@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_11@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_12@example.com (Asia/Jakarta)...
+[NotificationService] Event 3c7433f8-1e67-47fc-b08a-b0cc63401975 processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 2/10 (9341ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_13@example.com (Asia/Jakarta)...
+[NotificationService] Event d11ca0c5-b471-4eef-9f2d-725a7f3775bf processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_14@example.com (Asia/Jakarta)...
+[NotificationService] Event 05bbdc4d-536b-44b6-8199-2e36d5aadc88 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_15@example.com (Asia/Jakarta)...
+[NotificationService] Event 9fe4486e-3cc4-4987-a62e-e17eff7abb37 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_16@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_18@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_19@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_20@example.com (Asia/Jakarta)...
+[NotificationService] Event f1b936f9-e2b7-402d-adf6-800c9a275830 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_21@example.com (Asia/Jakarta)...
+[NotificationService] Event 03da6e27-4695-43c6-bebb-05879b9b1ab1 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_22@example.com (Asia/Jakarta)...
+[NotificationService] Event 958dd9b9-b6f1-48e9-b084-9ab184ae6c37 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_23@example.com (Asia/Jakarta)...
+[NotificationService] Event a266d7d3-a4f5-42ce-8814-89ad12e9629e processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 7/10 (9236ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_24@example.com (Asia/Jakarta)...
+<-- GET /user
+--> GET /user 200 34ms
+[wrangler:info] GET /user 200 OK (73ms)
+[NotificationService] Event 539b2318-fa68-4861-91dd-63e4def44b48 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_25@example.com (Asia/Jakarta)...
+[NotificationService] Event 37174429-4133-453c-8ec3-21a8b32ec750 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_26@example.com (Asia/Jakarta)...
+[NotificationService] Event 3e89023a-d762-4b89-961b-a0d2784d24ae processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_27@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_28@example.com (Asia/Jakarta)...
+[NotificationService] Event d66b75d4-a955-4aeb-8171-b1949e583d1d processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_29@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_30@example.com (Asia/Jakarta)...
+[NotificationService] Event 837ec008-5261-4202-9358-4e2e673aeb93 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_31@example.com (Asia/Jakarta)...
+[NotificationService] Event 017cdf0f-e840-4b61-908e-583a625eeeb1 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_32@example.com (Asia/Jakarta)...
+[NotificationService] Event 0ab00bd5-1712-486d-84f7-43c553896b55 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_33@example.com (Asia/Jakarta)...
+[NotificationService] Event add487c5-d71f-4b9c-9f8f-d70f48cfc2ac processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 8/10 (2299ms)
+[Queue] Processing batch of 10 messages.
+[NotificationService] Sending to cron_test_1767567696929_34@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_35@example.com (Asia/Jakarta)...
+[NotificationService] Event 24000aad-37d1-4735-b439-2a7de18fd9c8 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_36@example.com (Asia/Jakarta)...
+[NotificationService] Event 5ed95cee-0ae3-4b3a-831b-14d960157496 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_40@example.com (Asia/Jakarta)...
+[NotificationService] Event 883f4fdd-dfe2-4467-8c68-c36227b37bb2 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_47@example.com (Asia/Jakarta)...
+[NotificationService] Event 2dd3cca0-a4e5-4467-ac8b-2b3d72f2fdbd processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_48@example.com (Asia/Jakarta)...
+[NotificationService] Event b68f04d7-9732-48a3-b8a3-070b1c86403f processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_49@example.com (Asia/Jakarta)...
+[NotificationService] Event 8a28dd4e-5ace-479d-8080-eb52757834a0 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_50@example.com (Asia/Jakarta)...
+[NotificationService] Event 2c5ecd9e-174d-464d-b13c-bd39cec40137 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_56@example.com (Asia/Jakarta)...
+[NotificationService] Event 5d074c33-59e5-4e4a-9488-1dcf021c532b processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_57@example.com (Asia/Jakarta)...
+[NotificationService] Event f4029c2a-80a7-41a4-8e81-877448f12a58 processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 9/10 (3296ms)
+[Queue] Processing batch of 2 messages.
+[NotificationService] Sending to cron_test_1767567696929_58@example.com (Asia/Jakarta)...
+[NotificationService] Event 082318d3-d7fe-4cba-8dad-6ca4937ebb1f processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_59@example.com (Asia/Jakarta)...
+[NotificationService] Event d6a59bd4-b654-4a27-9f1e-b463baf40008 processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 2/2 (1282ms)
+[Queue] Processing batch of 8 messages.
+[NotificationService] Sending to cron_test_1767567696929_60@example.com (Asia/Jakarta)...
+[NotificationService] Event d651b850-24e3-4a8e-a98e-d2be8a92bddb processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_61@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_62@example.com (Asia/Jakarta)...
+[NotificationService] Event 7e8dc9b8-1121-416c-a9d7-702b2d2fe83f processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_64@example.com (Asia/Jakarta)...
+[NotificationService] Event f02da7df-db56-41a2-ba2a-abafdd021655 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_65@example.com (Asia/Jakarta)...
+[NotificationService] Event 866ef9a6-f6e4-4549-b876-ea6038a36423 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_66@example.com (Asia/Jakarta)...
+[NotificationService] Event db600c64-2e19-4df4-a563-b83259e370b1 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_67@example.com (Asia/Jakarta)...
+[NotificationService] Event b1e1c34a-8765-415b-9374-c911d3f4dbef processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_68@example.com (Asia/Jakarta)...
+[NotificationService] Event bac0566f-97f0-40cc-8d3b-8b65b8334975 processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 7/8 (9505ms)
+[Queue] Processing batch of 3 messages.
+[NotificationService] Sending to cron_test_1767567696929_70@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_79@example.com (Asia/Jakarta)...
+[NotificationService] Event 1f1d547e-020f-4df2-92ca-9b4cd132cb86 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_80@example.com (Asia/Jakarta)...
+[NotificationService] Event 4bdb86cf-da33-4704-8cf4-e332a60798ea processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 2/3 (1899ms)
+<-- OPTIONS /user/96b811dd-d02a-4bad-ab1e-35d0ad836082
+--> OPTIONS /user/96b811dd-d02a-4bad-ab1e-35d0ad836082 204 0ms
+[wrangler:info] OPTIONS /user/96b811dd-d02a-4bad-ab1e-35d0ad836082 204 No Content (9ms)
+<-- DELETE /user/96b811dd-d02a-4bad-ab1e-35d0ad836082
+--> DELETE /user/96b811dd-d02a-4bad-ab1e-35d0ad836082 200 10ms
+[wrangler:info] DELETE /user/96b811dd-d02a-4bad-ab1e-35d0ad836082 200 OK (24ms)
+<-- GET /user
+--> GET /user 200 9ms
+[wrangler:info] GET /user 200 OK (49ms)
+<-- OPTIONS /user/befa7c54-a8cc-46d4-96a9-c1337711283c
+--> OPTIONS /user/befa7c54-a8cc-46d4-96a9-c1337711283c 204 0ms
+[wrangler:info] OPTIONS /user/befa7c54-a8cc-46d4-96a9-c1337711283c 204 No Content (7ms)
+<-- DELETE /user/befa7c54-a8cc-46d4-96a9-c1337711283c
+--> DELETE /user/befa7c54-a8cc-46d4-96a9-c1337711283c 200 2ms
+[wrangler:info] DELETE /user/befa7c54-a8cc-46d4-96a9-c1337711283c 200 OK (8ms)
+<-- GET /user
+--> GET /user 200 15ms
+[wrangler:info] GET /user 200 OK (27ms)
+[Queue] Processing batch of 8 messages.
+[NotificationService] Sending to cron_test_1767567696929_90@example.com (Asia/Jakarta)...
+[NotificationService] Event 088d15b3-981f-41d2-aeff-b2bce094dd70 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_92@example.com (Asia/Jakarta)...
+[NotificationService] Event ad375694-ff40-4b60-8eb2-85dbf8570e25 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_93@example.com (Asia/Jakarta)...
+[NotificationService] Event 72002670-7e6c-4d5f-b153-70a52a8df8c0 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_94@example.com (Asia/Jakarta)...
+[NotificationService] Event feb9b08d-fe2e-462d-bcb4-f58da46ad177 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_96@example.com (Asia/Jakarta)...
+[NotificationService] Event c515bc6c-4aec-486f-b8b1-0de09500953e processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_97@example.com (Asia/Jakarta)...
+[NotificationService] Event e5c0dd35-40dc-4a18-83cb-eb6bf3a74e21 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_98@example.com (Asia/Jakarta)...
+[NotificationService] Event 0f3e3346-97d2-441c-9c0b-211cf17221b1 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_99@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[wrangler:info] QUEUE birthday-email-queue 7/8 (3462ms)
+[Queue] Processing batch of 8 messages.
+[NotificationService] Sending to cron_test_1767567696929_3@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[NotificationService] Sending to cron_test_1767567696929_4@example.com (Asia/Jakarta)...
+[NotificationService] Event 88c3a525-405f-48bf-95ae-e04eb2c1213a processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_5@example.com (Asia/Jakarta)...
+[NotificationService] Event 63742488-9354-44a1-8e34-f578b070823d processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_7@example.com (Asia/Jakarta)...
+[NotificationService] Event 61f16d5f-b498-4735-b18a-adb4b09fa674 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_8@example.com (Asia/Jakarta)...
+[NotificationService] Event b2707d85-e8ca-4dcc-8aa2-b3660ac1315f processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_9@example.com (Asia/Jakarta)...
+[NotificationService] Event 71e23fb5-2699-4a73-8f1a-3f2240ce3514 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_10@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_11@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 502 Bad Gateway
+
+
+[wrangler:warn] Dropped message "e379920d4806d26c7fea447e39394bd3" on queue "birthday-email-queue" after 3 failed attempts!
+[wrangler:warn] Dropped message "0daa80be03b6c48af15821bf6150805b" on queue "birthday-email-queue" after 3 failed attempts!
+[wrangler:warn] Dropped message "2e8ec183b65ba27b0b4c1f539838fefe" on queue "birthday-email-queue" after 3 failed attempts!
+[wrangler:info] QUEUE birthday-email-queue 5/8 (14378ms)
+[Queue] Processing batch of 6 messages.
+[NotificationService] Sending to cron_test_1767567696929_16@example.com (Asia/Jakarta)...
+[NotificationService] Event f6ed7a05-2406-45a3-8cf1-904e5e2c845b processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_18@example.com (Asia/Jakarta)...
+[NotificationService] Event 3a102868-2f31-41ad-8dce-9e4f5141c73b processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_19@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[NotificationService] Sending to cron_test_1767567696929_27@example.com (Asia/Jakarta)...
+[NotificationService] Event 1c90dff2-78f2-42ed-a667-07609d86beb4 processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_29@example.com (Asia/Jakarta)...
+[NotificationService] Event 842229f7-5766-40c2-b0fb-61c27d7ddada processed. Next: 2027-01-01T02:00:00.000Z
+[NotificationService] Sending to cron_test_1767567696929_34@example.com (Asia/Jakarta)...
+[NotificationService] Event 8191fdcb-b1cb-4ef9-af7d-bbccfb5f017f processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:warn] Dropped message "05f71ce37b5da9ce590ca265e50b7a5e" on queue "birthday-email-queue" after 3 failed attempts!
+[wrangler:info] QUEUE birthday-email-queue 5/6 (3624ms)
+[Queue] Processing batch of 1 messages.
+[NotificationService] Sending to cron_test_1767567696929_61@example.com (Asia/Jakarta)...
+[NotificationService] Event a4f1a4dc-05f8-4638-a992-49e91a2a0411 processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 1/1 (677ms)
+[Queue] Processing batch of 1 messages.
+[NotificationService] Sending to cron_test_1767567696929_70@example.com (Asia/Jakarta)...
+▲ [WARNING] [NotificationService] API Error: 500 Internal Server Error
+
+
+[wrangler:warn] Dropped message "1932d7bacc7fa0eea0665bb5954c9aa2" on queue "birthday-email-queue" after 3 failed attempts!
+[wrangler:info] QUEUE birthday-email-queue 0/1 (632ms)
+[Queue] Processing batch of 1 messages.
+[NotificationService] Sending to cron_test_1767567696929_99@example.com (Asia/Jakarta)...
+[NotificationService] Event 1d508860-61da-4b67-b260-dd7b489828c8 processed. Next: 2027-01-01T02:00:00.000Z
+[wrangler:info] QUEUE birthday-email-queue 1/1 (719ms)
