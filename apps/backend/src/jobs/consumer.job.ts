@@ -19,6 +19,12 @@ export async function consumerJob(
     for (const message of batch.messages) {
         const { eventId, userId, type, version } = message.body;
 
+        if (!userId) {
+            console.error(`[Queue] Invalid Message (Missing userId): ${message.id}. Dropping.`);
+            message.ack();
+            continue;
+        }
+
         try {
             const result = await notificationService.processEvent({
                 eventId,
